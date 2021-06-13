@@ -57,7 +57,7 @@ public class LecturaTabla {
     public String getB() {
         return b;
     }
-    
+
     //Obtiene toda la información de la tabla 
     private void leerTabla(String dir) {
         try {
@@ -71,8 +71,8 @@ public class LecturaTabla {
             while ((linea = br.readLine()) != null) {
                 ArrayList<TransicionSalida> tSalida = new ArrayList<TransicionSalida>();
                 if (aux == 0) {
-                    b=linea;
-                }else if (aux == 1) { //Lee el Alfabeto de entrada 
+                    b = linea;
+                } else if (aux == 1) { //Lee el Alfabeto de entrada 
                     String ar[] = linea.split(",");
                     for (int i = 0; i < ar.length; i++) {
                         simbolosE.add(ar[i]);
@@ -98,7 +98,7 @@ public class LecturaTabla {
                     }
 
                     //Identifica las tansiciones de cada estado
-                    for (int i = 2; i < ar.length ; i++) {
+                    for (int i = 2; i < ar.length; i++) {
                         TransicionSalida ts;
                         if (!ar[i].equals("_")) {
                             String ar2[] = ar[i].split("\\|");
@@ -125,13 +125,13 @@ public class LecturaTabla {
             }
         }
     }
-    
+
     //Imprime el Lenguaje del automata 
-    public void imprimirLenguaje(){
+    public void imprimirLenguaje() {
         System.out.print("El Alfabeto de entrada es: ");
         for (int i = 0; i < simbolosE.size(); i++) {
-            System.out.print(simbolosE.get(i)+ ",");
+            System.out.print(simbolosE.get(i) + ",");
         }
         System.out.println(" ");
-    }    
+    }
 }
