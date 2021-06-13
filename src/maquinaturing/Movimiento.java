@@ -36,24 +36,31 @@ public class Movimiento {
         this.b = tb.getB();
         this.edoActual = this.edoI;
         llenarCinta();
-        //revisarCadena(this.cadena);
+        revisarCadena();
+        mostrarMsj();
     }
 
-    private void revisarCadena(String cadena) {
-
-        for (int i = 0; i < cadena.length(); i++) {
-            for (int j = 0; j < trans.get(edosUnidad.indexOf(edoActual)).size(); j++) {
-                if (String.valueOf(cadena.charAt(i)).equals(simbolosE.get(j))) {
-                    /*    TransicionSalida ts = new TransicionSalida();
-                    ts = (TransicionSalida) trans.get(edosUnidad.indexOf(edoActual)).get(simbolosE.indexOf(simbolosE.get(j)));
-                    edoActual = ts.getEdoSig();
-                    if (ts.getD().equals("D")) {
-                        moverDerecha(ts.getY());
-                    } else {
-                        moverIzquierda(ts.getY());
-                    }*/
-                }
-            }
+    private void revisarCadena() {
+        int indexCinta;
+        int indexEdo;
+        if (cinta.indexOf(edoActual) == cinta.size() - 1) {
+            cinta.add(b);
+            String aux = cinta.get(cinta.indexOf(edoActual) + 1).toString();
+            indexCinta = simbolosC.indexOf(aux);
+            indexEdo = edosUnidad.indexOf(edoActual);
+        } else {
+            String aux = cinta.get(cinta.indexOf(edoActual) + 1).toString();
+            indexCinta = simbolosC.indexOf(aux);
+            indexEdo = edosUnidad.indexOf(edoActual);
+        }
+        TransicionSalida ts = new TransicionSalida();
+        ts = (TransicionSalida) trans.get(indexEdo).get(indexCinta);
+        if (ts.getD().equals("R")) {
+            moverDerecha(ts.getY(), ts.getEdoSig());
+            revisarCadena();
+        } else if (ts.getD().equals("L")) {
+            moverIzquierda(ts.getY(), ts.getEdoSig());
+            revisarCadena();
         }
     }
 
@@ -68,58 +75,91 @@ public class Movimiento {
         }
     }
 
-    private void moverDerecha(String y) {
+    private void moverDerecha(String y, String sig) {
         if (cinta.indexOf(edoActual) == 0 && y.equals(b)) {
-            String temporal = cinta.get(cinta.indexOf(edoActual)).toString();
             int index = cinta.indexOf(edoActual);
+            edoActual = sig;
             cinta.remove(index);
             cinta.remove(index);
             cinta.add(index, y);
-            cinta.add(index + 1, temporal);
+            cinta.add(index + 1, edoActual);
             cinta.remove(0);
+            System.out.println("");
+            for (int i = 0; i < cinta.size(); i++) {
+                System.out.print(cinta.get(i) + " ");
+            }
         } else if (cinta.indexOf(edoActual) == cinta.size() - 1) {
             cinta.add(b);
-            String temporal = cinta.get(cinta.indexOf(edoActual)).toString();
             int index = cinta.indexOf(edoActual);
+            edoActual = sig;
             cinta.remove(index);
             cinta.remove(index);
             cinta.add(index, y);
-            cinta.add(index + 1, temporal);
+            cinta.add(index + 1, edoActual);
+            System.out.println("");
+            for (int i = 0; i < cinta.size(); i++) {
+                System.out.print(cinta.get(i) + " ");
+            }
         } else {
-            String temporal = cinta.get(cinta.indexOf(edoActual)).toString();
             int index = cinta.indexOf(edoActual);
+            edoActual = sig;
             cinta.remove(index);
             cinta.remove(index);
             cinta.add(index, y);
-            cinta.add(index + 1, temporal);
+            cinta.add(index + 1, edoActual);
+            System.out.println("");
+            for (int i = 0; i < cinta.size(); i++) {
+                System.out.print(cinta.get(i) + " ");
+            }
         }
     }
 
-    private void moverIzquierda(String y) {
+    private void moverIzquierda(String y, String sig) {
         if (cinta.indexOf(edoActual) == 0) {
             cinta.add(0, b);
-            String temporal = cinta.get(cinta.indexOf(edoActual)).toString();
             int index = cinta.indexOf(edoActual);
+            edoActual = sig;
             cinta.remove(index);
-            cinta.remove(index - 1);
-            cinta.add(index - 1, y);
-            cinta.add(index - 1, temporal);
+            cinta.remove(index + 1);
+            cinta.add(index, y);
+            cinta.add(index - 1, edoActual);
+            System.out.println("");
+            for (int i = 0; i < cinta.size(); i++) {
+                System.out.print(cinta.get(i) + " ");
+            }
         } else if (cinta.indexOf(edoActual) == cinta.size() - 1 && y.equals(b)) {
-            String temporal = cinta.get(cinta.indexOf(edoActual)).toString();
             int index = cinta.indexOf(edoActual);
+            edoActual = sig;
             cinta.remove(index);
-            cinta.remove(index - 1);
-            cinta.add(index - 1, y);
-            cinta.add(index - 1, temporal);
+            cinta.remove(index + 1);
+            cinta.add(index, y);
+            cinta.add(index - 1, edoActual);
             cinta.remove(cinta.size() - 1);
+            System.out.println("");
+            for (int i = 0; i < cinta.size(); i++) {
+                System.out.print(cinta.get(i) + " ");
+            }
         } else {
-            String temporal = cinta.get(cinta.indexOf(edoActual)).toString();
             int index = cinta.indexOf(edoActual);
+            edoActual = sig;
             cinta.remove(index);
-            cinta.remove(index - 1);
-            cinta.add(index - 1, y);
-            cinta.add(index - 1, temporal);
+            cinta.remove(index);
+            cinta.add(index, y);
+            cinta.add(index - 1, edoActual);
+            System.out.println("");
+            for (int i = 0; i < cinta.size(); i++) {
+                System.out.print(cinta.get(i) + " ");
+            }
         }
 
+    }
+
+    private void mostrarMsj() {
+        System.out.println("");
+        if (edosFinales.contains(edoActual)) {
+            System.out.println("La cadena es aceptada");
+        } else {
+            System.out.println("La cadena no es aceptada");
+        }
     }
 }
