@@ -120,7 +120,7 @@ public class Movimiento {
             int index = cinta.indexOf(edoActual);
             edoActual = sig;
             cinta.remove(index);
-            cinta.remove(index + 1);
+            cinta.remove(index);
             cinta.add(index, y);
             cinta.add(index - 1, edoActual);
             System.out.println("");
@@ -131,7 +131,7 @@ public class Movimiento {
             int index = cinta.indexOf(edoActual);
             edoActual = sig;
             cinta.remove(index);
-            cinta.remove(index + 1);
+            cinta.remove(index);
             cinta.add(index, y);
             cinta.add(index - 1, edoActual);
             cinta.remove(cinta.size() - 1);
