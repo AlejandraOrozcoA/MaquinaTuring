@@ -1,8 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+// Instituto Politécnico Nacional - ESCOM 
+// Alejandra Orozco Aguilar 
+// Teoría Computacional  Grupo: 2CV12
+// Prof. Luna Benoso Benjamin
+// Ciclo escolar 21/2
+
 package maquinaturing;
 
 import java.util.ArrayList;
@@ -36,13 +37,14 @@ public class Movimiento {
         this.b = tb.getB();
         this.edoActual = this.edoI;
         llenarCinta();
-        revisarCadena();
+        revisarCinta();
         mostrarMsj();
     }
 
-    private void revisarCadena() {
+    private void revisarCinta() {
         int indexCinta;
         int indexEdo;
+        //Obtiene la ubicacion del cabezal 
         if (cinta.indexOf(edoActual) == cinta.size() - 1) {
             cinta.add(b);
             String aux = cinta.get(cinta.indexOf(edoActual) + 1).toString();
@@ -53,17 +55,19 @@ public class Movimiento {
             indexCinta = simbolosC.indexOf(aux);
             indexEdo = edosUnidad.indexOf(edoActual);
         }
+        //Identifica la transicion siguiente 
         TransicionSalida ts = new TransicionSalida();
         ts = (TransicionSalida) trans.get(indexEdo).get(indexCinta);
-        if (ts.getD().equals("R")) {
+        if (ts.getD().equals("R")) { 
             moverDerecha(ts.getY(), ts.getEdoSig());
-            revisarCadena();
+            revisarCinta();
         } else if (ts.getD().equals("L")) {
             moverIzquierda(ts.getY(), ts.getEdoSig());
-            revisarCadena();
+            revisarCinta();
         }
     }
-
+    
+    //Inicializa la cinta con el estado inicial y la cadena 
     private void llenarCinta() {
         cinta.clear();
         cinta.add(edoActual);
@@ -74,9 +78,9 @@ public class Movimiento {
             System.out.print(cinta.get(i) + " ");
         }
     }
-
+    //Se encarga de mover el cabezal a la derecha 
     private void moverDerecha(String y, String sig) {
-        if (cinta.indexOf(edoActual) == 0 && y.equals(b)) {
+        if (cinta.indexOf(edoActual) == 0 && y.equals(b)) { // El cabezal apunta a X1 & Y=B
             int index = cinta.indexOf(edoActual);
             edoActual = sig;
             cinta.remove(index);
@@ -88,7 +92,7 @@ public class Movimiento {
             for (int i = 0; i < cinta.size(); i++) {
                 System.out.print(cinta.get(i) + " ");
             }
-        } else if (cinta.indexOf(edoActual) == cinta.size() - 1) {
+        } else if (cinta.indexOf(edoActual) == cinta.size() - 1) { // El cabezal apunta a Xn
             cinta.add(b);
             int index = cinta.indexOf(edoActual);
             edoActual = sig;
@@ -100,7 +104,7 @@ public class Movimiento {
             for (int i = 0; i < cinta.size(); i++) {
                 System.out.print(cinta.get(i) + " ");
             }
-        } else {
+        } else { //El cabezal apunta a Xi
             int index = cinta.indexOf(edoActual);
             edoActual = sig;
             cinta.remove(index);
@@ -113,9 +117,9 @@ public class Movimiento {
             }
         }
     }
-
+    //Se encarga de mover el cabezal a la izquierda 
     private void moverIzquierda(String y, String sig) {
-        if (cinta.indexOf(edoActual) == 0) {
+        if (cinta.indexOf(edoActual) == 0) { //El cabezal apunta a X1
             cinta.add(0, b);
             int index = cinta.indexOf(edoActual);
             edoActual = sig;
@@ -127,7 +131,7 @@ public class Movimiento {
             for (int i = 0; i < cinta.size(); i++) {
                 System.out.print(cinta.get(i) + " ");
             }
-        } else if (cinta.indexOf(edoActual) == cinta.size() - 1 && y.equals(b)) {
+        } else if (cinta.indexOf(edoActual) == cinta.size() - 1 && y.equals(b)) { //El cabezal abunta a Xn & Y=B
             int index = cinta.indexOf(edoActual);
             edoActual = sig;
             cinta.remove(index);
@@ -139,7 +143,7 @@ public class Movimiento {
             for (int i = 0; i < cinta.size(); i++) {
                 System.out.print(cinta.get(i) + " ");
             }
-        } else {
+        } else { //El cabezal apunta a Xi
             int index = cinta.indexOf(edoActual);
             edoActual = sig;
             cinta.remove(index);
@@ -153,7 +157,8 @@ public class Movimiento {
         }
 
     }
-
+    
+    //Muestra el mensaje que indica si la cadena es aceptada o no 
     private void mostrarMsj() {
         System.out.println("");
         if (edosFinales.contains(edoActual)) {

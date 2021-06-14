@@ -1,8 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+// Instituto Politécnico Nacional - ESCOM 
+// Alejandra Orozco Aguilar 
+// Teoría Computacional  Grupo: 2CV12
+// Prof. Luna Benoso Benjamin
+// Ciclo escolar 21/2
+
 package maquinaturing;
 
 /**
